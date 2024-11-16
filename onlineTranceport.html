@@ -1,0 +1,51 @@
+<h1>View All Responses</h1>
+<input type="text" id="searchInput" placeholder="Search..." style="margin: 30px;" onkeyup="searchFunction()">
+<div id="responseContainer">
+    <c:forEach var="responses" items="${allResponses}">
+        <div class="response">
+            <p>User ID: ${responses.userId}</p>
+            <p>User Name: ${responses.username}</p>
+            <p>First Name: ${responses.firstName}</p>
+            <p>Last Name: ${responses.lastName}</p>
+            <p>Response Date: ${responses.responseDate}</p>
+            <p>Response: ${responses.adminResponse}</p>
+
+            <a href="updateRespons.jsp?userId=${responses.userId}&username=${responses.username}">
+                <button>Update</button>
+            </a>
+            <form action="DeleteServlet" method="post">
+                <input type="hidden" name="userId" value="${responses.userId}" />
+                <button>Delete</button>
+            </form>
+        </div>
+        <br>
+    </c:forEach>
+</div>
+
+<script>
+    function searchFunction() {
+        // Get the search input value
+        var input = document.getElementById("searchInput");
+        var filter = input.value.toLowerCase();
+        
+        // Get the response container and all the responses
+        var responseContainer = document.getElementById("responseContainer");
+        var responses = responseContainer.getElementsByClassName("response");
+        
+        // Loop through all response elements, and hide those that don't match the search query
+        for (var i = 0; i < responses.length; i++) {
+            var response = responses[i];
+            // You can choose which fields to search through (e.g., username, firstName)
+            var username = response.getElementsByTagName("p")[1].textContent.toLowerCase();
+            var firstName = response.getElementsByTagName("p")[2].textContent.toLowerCase();
+            var lastName = response.getElementsByTagName("p")[3].textContent.toLowerCase();
+
+            // Check if any of the fields match the filter
+            if (username.includes(filter) || firstName.includes(filter) || lastName.includes(filter)) {
+                response.style.display = ""; // Show the response if it matches
+            } else {
+                response.style.display = "none"; // Hide the response if it doesn't match
+            }
+        }
+    }
+</script>

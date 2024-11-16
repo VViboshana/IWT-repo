@@ -1,0 +1,22 @@
+ table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center; /* Center align table data */
+}
+
+th {
+    background-color: #83a1bc;
+}
+tr:nth-child(odd)
+{
+    background-color: #bdcee3;
+}
+tr:nth-child(even)
+{
+    background-color: #d5dde5;
+}
